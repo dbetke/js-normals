@@ -15,30 +15,11 @@ describe("js-normals", function () {
 
     });
 
-    describe("parsing from a string", function () {
-
-        it("should corectly parse the 5 lines of metadata at the top of a string", function () {
-            var data = (""
-                        + "Station Name: MO BILLINGS 1SW\n"
-                        + "GHCN Daily ID: USC00230657\n"
-                        + "Latitude: 37.0536\n"
-                        + "Longitude: -93.5750\n"
-                        + "Elevation: 406.0m\n"
-                       );
-            var n = generateNormals(data);
-
-            expect(n.meta['GHCN Daily ID']).toBe(" USC00230657");
-
-        });
-
-    });
-
-
     describe("parsing from test file data/USC00230657.normals.txt", function () {
 
-        var loadingFinished = false;
-        var data;
-        var n;
+        var loadingFinished = false,
+            data,
+            n;
 
         $.ajax({
             url : '../data/USC00230657.normals.txt',
@@ -65,19 +46,17 @@ describe("js-normals", function () {
                     expect(n.meta).not.toBeUndefined();
                 });
             });
-            it("should have the correct GHCN Daily ID value", function () {
-                runs(function() {
-                    expect(n.meta['GHCN Daily ID']).toBe(" USC00230657");
-                });
-            });
-            it("should have the correct Station Name value", function () {
-                runs(function() {
-                    expect(n.meta['Station Name']).toBe(" MO BILLINGS 1SW");
-                });
-            });
 
+            it("should correctly store metadata", function () {
+                runs(function() {
+                    expect(n.meta['Station Name']).toBe("MO BILLINGS 1SW");
+                    expect(n.meta['GHCN Daily ID']).toBe("USC00230657");
+                    expect(n.meta['Latitude']).toBe('37.0536');
+                    expect(n.meta['Longitude']).toBe('-93.5750');
+                    expect(n.meta['Elevation']).toBe('406.0m');
+                });
+            });
         });
-
 
         xdescribe("daily temperature values", function () {
             it("blahblah", function () {
