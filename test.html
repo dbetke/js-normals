@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <script type='text/javascript' src='normals.js'></script>
+    <script>
+      function reqListener () {
+        var response = this.responseText;
+        generateNormals(response);
+      };
+      
+      var req = new XMLHttpRequest();
+      req.onload = reqListener;
+      req.open("get", "data/USC00230657.normals.txt", true);
+      req.send();
+    </script>
+  </head>
+
+  <body>
+  </body>
+
+</html>
