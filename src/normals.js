@@ -13,5 +13,6 @@ function generateNormals (str) {
             obj.meta[name] = value;
         }
    
-    console.log(obj);
+    //console.log(obj);
+    return obj;
 };
