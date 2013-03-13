@@ -1,17 +1,60 @@
-function generateNormals (str) {
+function generateNormals(str) {
     'use strict';
     var obj = {},
-        linesArray = str.split('\n', 5); //get first five lines -> station name, id, lat, long, elev
+        fileArray = str.split('\n'),
+        state;
 
     obj.meta = {};
-    obj.data = {}; //focus on daily data first
+    obj.data = {}; 
+
+    function setState(str){
+        //determine type of line, set the case
+        var re_meta = new RegExp(/(.+):(.+)/),
+            re_header,
+            re_subheader,
+            re_dashes;
+
+        if (str.match(re_meta)) {
+            state = 'meta';
+        } else {
+            state = undefined;
+        }        
+    }
     
-    for (item in linesArray){
-            var newItem = linesArray[item].split(':'),
-                name = newItem[0].replace(/^[ \t]+|[ \t]+$/, '');
-                value = newItem[1].replace(/^[ \t]+|[ \t]+$/, '');
-            obj.meta[name] = value;
+    for (var item in fileArray) {
+        //.. parse through each array element (line), skipping blanks
+        if (item !== '') {
+            
+            setState(fileArray[item]);
+
+            switch(state) {
+
+            case 'meta':
+                var newItem = fileArray[item].split(':'),
+                    name = newItem[0].replace(/^[ \t]+|[ \t]+$/, ''),
+                    value = newItem[1].replace(/^[ \t]+|[ \t]+$/, '');
+                obj.meta[name] = value;
+                break;
+
+            case 'header':
+                //..
+                break;
+
+            case 'subheader':
+                //..
+                break;
+
+            case 'dashes':
+                //.. 
+                break;
+
+            default:
+                break;
+            }
         }
 
+    }
+
     return obj;
+
 };
