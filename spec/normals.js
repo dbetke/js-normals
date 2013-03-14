@@ -39,7 +39,7 @@ describe("js-normals", function () {
             });
         });
 
-        describe("metadata", function () {
+        describe("generate normals", function () {
 
             it("should have metadata", function () {
                 runs(function() {
@@ -56,14 +56,26 @@ describe("js-normals", function () {
                     expect(n.meta['Elevation']).toBe('406.0m');
                 });
             });
-        });
-
-        xdescribe("daily temperature values", function () {
-            it("blahblah", function () {
+            
+            it("should have data", function () {
+                expect(n.data).not.toBeUndefined();
             });
+
+            it("should correctly store the data headers", function () {
+                expect(n.data['Temperature-Related Normals']).toEqual(jasmine.any(Object));
+                expect(n.data['Precipitation-Related Normals']).toEqual(jasmine.any(Object));
+            });
+
+            it("should correctly store the data subheaders", function () {
+                expect(n.data['Temperature-Related Normals']['Monthly']).toEqual(jasmine.any(Object));
+                expect(n.data['Temperature-Related Normals']['Daily']).toEqual(jasmine.any(Object));
+                expect(n.data['Temperature-Related Normals']['Annual/Seasonal']).toEqual(jasmine.any(Object));
+                expect(n.data['Precipitation-Related Normals']['Monthly']).toEqual(jasmine.any(Object));
+                expect(n.data['Precipitation-Related Normals']['Daily']).toEqual(jasmine.any(Object));
+                expect(n.data['Precipitation-Related Normals']['Annual/Seasonal']).toEqual(jasmine.any(Object));
+            });
+
         });
-
-
 
     });
 
