@@ -89,12 +89,14 @@ describe("js-normals", function () {
                 expect(n.data['Precipitation-Related Normals']['Monthly']['mly-snow-avgnds-ge100ti'][1]).toEqual('1S');
             });
 
-            xit("should correctly store the daily temperature-related normals data", function () {
-
+            it("should correctly store the daily temperature-related normals data", function () {
+                expect(n.data['Temperature-Related Normals']['Daily']['dly-tmin-normal'][0][3]).toEqual('207C');
+                expect(n.data['Temperature-Related Normals']['Daily']['dly-cldd-base60'][4][12]).toEqual('5C');
             });
 
-            xit("should correctly store the daily precipitation-related normals data", function () {
-
+            it("should correctly store the daily precipitation-related normals data", function () {
+                expect(n.data['Precipitation-Related Normals']['Daily']['mtd-snow-normal'][11][0]).toEqual('1P');
+                expect(n.data['Precipitation-Related Normals']['Daily']['dly-prcp-pctall-ge010hi'][6][14]).toEqual('168S');
             });
             
             it("should correctly store the annual/seasonal temperature-related normals data", function () {

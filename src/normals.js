@@ -99,7 +99,7 @@ function generateNormals(str) {
                             if (dataArray[0].match(/^.+-/)) {
                                 description = dataArray[0];
                                 obj.data[header][subheader][description] = [];
-                                
+
                                 if (dataArray[1].match(/\D\D\D/)) {
                                     dataArray.splice(0,2);
                                 } else {
@@ -110,7 +110,12 @@ function generateNormals(str) {
                                 dataArray.splice(0,1);
                             }
 
-                            obj.data[header][subheader][description] = dataArray;                            
+                            if (subheader === 'Daily') {
+                                obj.data[header][subheader][description].push(dataArray);
+                            } else {
+                                obj.data[header][subheader][description] = dataArray;
+                            }
+ 
                             state = 5;
                         break;
                     }
