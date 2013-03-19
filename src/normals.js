@@ -12,7 +12,8 @@ function generateNormals(str) {
             re_header = new RegExp(/(.*)Normals(.*)/i), //contains the word 'normals', ignore case
             re_subheader = new RegExp(/(Monthly)|(Daily)|(Annual\/Seasonal)/i),
             re_dayNumbers = new RegExp(/^\s*(01)(.*)(31)$/),
-            re_dashes;
+            re_dashes = new RegExp(/^-*$/),
+            re_blank = new RegExp(/^\s*$/);
 
         if (str.match(re_meta)) {
             return 'meta';
@@ -21,7 +22,11 @@ function generateNormals(str) {
         } else if (str.match(re_subheader)) {
             return 'subheader';
         } else if (str.match(re_dayNumbers)) {
-            return 'columnheader';
+            return 'daynumbers';
+        } else if (str.match(re_dashes)){
+            return 'dashes';
+        } else if (!str.match(re_blank)){
+            return 'data';
         } else {
             return '';
         }
@@ -41,7 +46,7 @@ function generateNormals(str) {
             header,
             wholeSubheader,
             subheader,
-            columnHeaders;
+            description;
         //.. parse through each array element (line), skipping blanks
         if (category !== '') {
             switch(state) {
@@ -72,27 +77,41 @@ function generateNormals(str) {
                             wholeSubheader = fileArray[item].split(' '); //for cases when the additional column header values are on the subheader line
                             subheader = wholeSubheader[0];
                             obj.data[header][subheader] = {};
-                            state = 4;
                         break;
                     }
 
                 case 4 : 
                     switch(category) {
-                        case 'daynumbers' :
-                            //..
+                        case 'daynumbers' : 
                             state = 4;
                         break;
+                        
                         case 'dashes' : 
-                            //..
                             state = 5;
                         break;
                     }
 
                 case 5 : 
                     switch(category) {
-                        case 'data' : 
-                        //..
-                        state = 5;
+                        case 'data' :
+                            var dataArray = fileArray[item].trim().split(/\s+/);
+                        
+                            if (dataArray[0].match(/^.+-/)) {
+                                description = dataArray[0];
+                                obj.data[header][subheader][description] = [];
+                                
+                                if (dataArray[1].match(/\D\D\D/)) {
+                                    dataArray.splice(0,2);
+                                } else {
+                                    dataArray.splice(0,1);
+                                }
+                                
+                            } else if (dataArray[0].match(/\D\D\D/)) {
+                                dataArray.splice(0,1);
+                            }
+
+                            obj.data[header][subheader][description] = dataArray;                            
+                            state = 5;
                         break;
                     }
 
@@ -101,7 +120,8 @@ function generateNormals(str) {
         }
 
     }
-
+    
+    console.log(obj);
     return obj;
 
 };

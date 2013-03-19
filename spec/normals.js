@@ -74,6 +74,37 @@ describe("js-normals", function () {
                 expect(n.data['Precipitation-Related Normals']['Daily']).toEqual(jasmine.any(Object));
                 expect(n.data['Precipitation-Related Normals']['Annual/Seasonal']).toEqual(jasmine.any(Object));
             });
+            
+            it("should correctly store the normals description", function () {
+                expect(n.data['Temperature-Related Normals']['Monthly']['mly-tmax-normal']).toEqual(jasmine.any(Array));
+            });
+
+            it("should correctly store the monthly temperature-related normals data", function () {
+                expect(n.data['Temperature-Related Normals']['Monthly']['mly-tmax-normal'][0]).toEqual('446C');
+                expect(n.data['Temperature-Related Normals']['Monthly']['mly-tmax-avgnds-grth040'][11]).toEqual('215C');
+            });
+
+            it("should correctly store the monthly precipitation-related normals data", function () {
+                expect(n.data['Precipitation-Related Normals']['Monthly']['mly-prcp-75pctl'][4]).toEqual('521C');
+                expect(n.data['Precipitation-Related Normals']['Monthly']['mly-snow-avgnds-ge100ti'][1]).toEqual('1S');
+            });
+
+            xit("should correctly store the daily temperature-related normals data", function () {
+
+            });
+
+            xit("should correctly store the daily precipitation-related normals data", function () {
+
+            });
+            
+            it("should correctly store the annual/seasonal temperature-related normals data", function () {
+                expect(n.data['Temperature-Related Normals']['Annual/Seasonal']['ann-tmax-normal'][0]).toEqual('686R');
+            });
+
+            xit("should correctly store the annual/seasonal precipitation-related normals data", function () {
+                expect(n.data['Precipitation-Related Normals']['Annual/Seasonal']['jja-prcp-avgnds-ge001hi'][0]).toEqual('240S');
+            });
+
 
         });
 
