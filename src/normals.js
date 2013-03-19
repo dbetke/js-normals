@@ -113,7 +113,11 @@ function generateNormals(str) {
                             if (subheader === 'Daily') {
                                 obj.data[header][subheader][description].push(dataArray);
                             } else {
-                                obj.data[header][subheader][description] = dataArray;
+                                if(dataArray.length === 1) {
+                                    obj.data[header][subheader][description] = dataArray[0];
+                                } else {
+                                    obj.data[header][subheader][description] = dataArray;
+                                }
                             }
  
                             state = 5;

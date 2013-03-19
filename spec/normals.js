@@ -100,11 +100,11 @@ describe("js-normals", function () {
             });
             
             it("should correctly store the annual/seasonal temperature-related normals data", function () {
-                expect(n.data['Temperature-Related Normals']['Annual/Seasonal']['ann-tmax-normal'][0]).toEqual('686R');
+                expect(n.data['Temperature-Related Normals']['Annual/Seasonal']['ann-tmax-normal']).toEqual('686R');
             });
 
             xit("should correctly store the annual/seasonal precipitation-related normals data", function () {
-                expect(n.data['Precipitation-Related Normals']['Annual/Seasonal']['jja-prcp-avgnds-ge001hi'][0]).toEqual('240S');
+                expect(n.data['Precipitation-Related Normals']['Annual/Seasonal']['jja-prcp-avgnds-ge001hi']).toEqual('240S');
             });
 
 
