@@ -119,6 +119,17 @@ function generateNormals(str) {
                         dataArray.splice(0, 1);
                     }
 
+                    for (item in dataArray) {
+                        //convert data value to number, store in object with flag separate
+                        /* TODO: 
+                         * This is storing an array of 3 items, with the first being a blank space. 
+                         * Need to fix so that the array contains the non-blank values only 
+                         */
+                        var newItem = dataArray[item].trim().split(/(\-?\d+)/);
+                        dataArray[item] = {'value' : Number(newItem[1]), 'flag' : newItem[2]};
+                    }
+
+
                     //for daily, will be pushing multiple arrays
                     if (subheader === 'Daily') {
                         obj.data[header][subheader][description].push(dataArray);
