@@ -104,13 +104,6 @@ function generateNormals(str) {
 
                     dataArray = fileArray[item].trim().split(/\s+/);
 
-                    for (item = 0; item < dataArray.length; item++) {
-                        //remove non-existent normals denoted by entries like -7777C, -8888, etc
-                        if (dataArray[item].match(/^-\d{4}\D?$/)) {
-                            dataArray[item] = "";
-                        }
-                    }
-
                     //normals description
                     if (dataArray[0].match(/^.+-/)) {
                         description = dataArray[0];
