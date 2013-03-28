@@ -10,20 +10,7 @@ Installation
 Clone this repository and add any desired NOAA datasets to the Data directory.
 Load the data file as text, then use the generateNormals function to process the data.
 
-Example using Ajax:
-
-    var data,
-        obj;
-
-        $.ajax({
-            url : 'data/USC00230657.normals.txt',
-            dataType : 'text',
-            success : function (response) {
-                data = response;
-            }
-        });
-        
-        obj = generateNormals(data);
+See test.html for an example. 
 
 
 Usage
